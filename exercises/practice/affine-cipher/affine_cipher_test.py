@@ -77,6 +77,12 @@ class AffineCipherTest(unittest.TestCase):
 
     def test_decode_with_a_not_coprime_to_m(self):
         with self.assertRaises(ValueError) as err:
-            decode("Test", 13, 5)
+            decode("test", 13, 5)
         self.assertEqual(type(err.exception), ValueError)
         self.assertEqual(err.exception.args[0], "a and m must be coprime.")
+
+    def test_decode_with_capitals_in_cyphertext(self):
+        with self.assertRaises(ValueError) as err:
+            decode("BadCy phert ext", 17, 33)
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "unexpected input character.")
